@@ -15,7 +15,7 @@ export default defineConfig({
   reporter: 'html',
   use: {
     trace: 'on-first-retry',
-    baseURL: "https://habit-tracker-chi-five.vercel.app/",
+    baseURL: process.env.BASEURL,
   },
   projects: [
     {
@@ -28,4 +28,5 @@ export default defineConfig({
       use: { ...devices['Desktop Firefox'] },
     },
   ],
+  
 });
