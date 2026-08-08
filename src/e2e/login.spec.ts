@@ -45,6 +45,12 @@ test.describe('Login', () => {
 
     const modal = page.getByRole("dialog")
     await modal.getByRole("button", { name: "login" }).click()
+
+    const toast = page.getByRole("status").filter({ hasText: 'login with success' });
+    await expect(toast).toBeVisible();
+
+    await expect(page.getByText(`hi, ${username}!`)).toBeVisible();
+
   });
 
   test.afterAll("Exclusão de usuário", async ({ request }) => {
