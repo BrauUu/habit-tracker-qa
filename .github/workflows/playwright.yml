@@ -12,8 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
-    environment: DEV
-
     env:
       BASEURL: ${{ vars.BASEURL }}
       API_BASEURL: ${{ vars.API_BASEURL }}
