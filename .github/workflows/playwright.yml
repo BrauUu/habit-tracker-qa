@@ -1,0 +1,44 @@
+name: Tests E2E
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  e2e:
+    name: Exec Playwright
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      BASEURL: ${{ vars.BASEURL }}
+      API_BASEURL: ${{ vars.API_BASEURL }}
+
+    steps:
+      - name: Download project
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependecies
+        run: npm ci
+
+      - name: Install browsers
+        run: npx playwright install --with-deps
+
+      - name: Exec tests
+        run: npm test
+
+      - name: Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 15
