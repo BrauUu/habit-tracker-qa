@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
+    environment: DEV
+
     env:
       BASEURL: ${{ vars.BASEURL }}
       API_BASEURL: ${{ vars.API_BASEURL }}
@@ -19,18 +21,6 @@ jobs:
     steps:
     - name: Download project
       uses: actions/checkout@v4
-
-    - name: Validar configuração
-      run: |
-        if [ -z "$BASEURL" ]; then
-          echo "::error::A variável BASEURL não foi configurada"
-          exit 1
-        fi
-
-        if [ -z "$API_BASEURL" ]; then
-          echo "::error::A variável API_BASEURL não foi configurada"
-          exit 1
-        fi
 
     - name: Install Node.js
       uses: actions/setup-node@v4
