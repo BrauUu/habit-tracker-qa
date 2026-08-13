@@ -1,10 +1,16 @@
 name: Tests E2E
+run-name: >-
+  E2E - ${{ github.event.client_payload.component || 'manual' }}
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-    - main
+  repository_dispatch:
+    types:
+      - dev_deployment_succeeded
+
+concurrency:
+  group: e2e-dev
+  cancel-in-progress: true
 
 jobs:
   e2e:
