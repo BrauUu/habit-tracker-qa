@@ -1,12 +1,13 @@
 name: Tests E2E
-run-name: >-
-  E2E - ${{ github.event.client_payload.component || 'manual' }}
+run-name: E2E - ${{ inputs.component || 'manual' }}
 
 on:
   workflow_dispatch:
-  repository_dispatch:
-    types:
-      - dev_deployment_succeeded
+    inputs:
+      component:
+        description: Component that triggered the E2E run
+        required: false
+        type: string
 
 concurrency:
   group: e2e-dev
